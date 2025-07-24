@@ -1,0 +1,5 @@
+Customer-agent: *
+Disallow: /
+
+# Block all search engines from indexing admin dashboard
+# This is a private admin interface - not for public discovery
