@@ -1,6 +1,5 @@
 import { db } from '@/lib/prisma';
 import { User, UserRole } from '@prisma/client';
-import bcrypt from 'bcryptjs';
 
 // User role hierarchy and permissions
 export const USER_ROLES = {
@@ -173,7 +172,6 @@ export type CreateUserData = {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
   role: UserRole;
   imageUrl?: string;
 };
@@ -183,7 +181,6 @@ export type UpdateUserData = {
   lastName?: string;
   email?: string;
   imageUrl?: string;
-  password?: string;
   role?: UserRole;
 };
 
@@ -270,12 +267,10 @@ export const UserService = {
   },
 
   async createUser(data: CreateUserData): Promise<UserWithDetails> {
-    const hashedPassword = await bcrypt.hash(data.password, 12);
-
     return db.user.create({
       data: {
         ...data,
-        password: hashedPassword,
+        password: null, // No password for OAuth-only users
       },
       include: {
         _count: {
@@ -289,16 +284,9 @@ export const UserService = {
   },
 
   async updateUser(id: string, data: UpdateUserData): Promise<UserWithDetails> {
-    const updateData = { ...data };
-
-    // Hash password if provided
-    if (data.password) {
-      updateData.password = await bcrypt.hash(data.password, 12);
-    }
-
     return db.user.update({
       where: { id },
-      data: updateData,
+      data: data,
       include: {
         _count: {
           select: {
