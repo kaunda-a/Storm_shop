@@ -19,7 +19,7 @@ export type OrderWithDetails = Order & {
       name: string
       slug: string
       images: { url: string }[]
-      category: {
+      category?: {
         id: string
         name: string
         imageUrl: string | null
@@ -29,17 +29,17 @@ export type OrderWithDetails = Order & {
         isActive: boolean
         sortOrder: number
         slug: string
-      }
-      brand: {
+      } | null
+      brand?: {
         id: string
         name: string
         slug: string
-        imageUrl: string | null
+        logoUrl: string | null
         description: string | null
         isActive: boolean
         createdAt: Date
         updatedAt: Date
-      }
+      } | null
     }
     productVariant?: {
       size: string
@@ -142,7 +142,7 @@ export class OrderService {
     ])
 
     return {
-      orders: orders as OrderWithDetails[],
+      orders,
       pagination: {
         page,
         limit,
@@ -191,7 +191,7 @@ export class OrderService {
           }
         }
       }
-    }) as Promise<OrderWithDetails | null>
+    })
   }
 
   static async getOrderByNumber(orderNumber: string): Promise<OrderWithDetails | null> {
@@ -225,7 +225,7 @@ export class OrderService {
         },
         payments: true
       }
-    }) as Promise<OrderWithDetails | null>
+    })
   }
 
   static async updateOrderStatus(orderId: string, status: OrderStatus) {
@@ -331,7 +331,7 @@ export class OrderService {
           }
         }
       }
-    }) as Promise<OrderWithDetails>
+    })
   }
 
   static async getOrderStats() {
