@@ -12,13 +12,20 @@ export default async function OpengraphImage(
 ): Promise<ImageResponse> {
   const { title } = {
     ...{
-      title: process.env.SITE_NAME
+      title: 'Mzansi Footwear'
     },
     ...props
   };
 
-  const file = await readFile(join(process.cwd(), './fonts/Inter-Bold.ttf'));
-  const font = Uint8Array.from(file).buffer;
+  let font: ArrayBuffer | undefined;
+
+  try {
+    const file = await readFile(join(process.cwd(), './src/fonts/Inter-Bold.ttf'));
+    font = Uint8Array.from(file).buffer;
+  } catch (error) {
+    console.warn('Could not load font file for opengraph image:', error);
+    // Continue without custom font
+  }
 
   return new ImageResponse(
     (
@@ -32,14 +39,16 @@ export default async function OpengraphImage(
     {
       width: 1200,
       height: 630,
-      fonts: [
-        {
-          name: 'Inter',
-          data: font,
-          style: 'normal',
-          weight: 700
-        }
-      ]
+      ...(font && {
+        fonts: [
+          {
+            name: 'Inter',
+            data: font,
+            style: 'normal',
+            weight: 700
+          }
+        ]
+      })
     }
   );
 }
