@@ -1,0 +1,32 @@
+Error: useSidebar must be used within a SidebarProvider.
+    at useSidebar (http://localhost:3000/_next/static/chunks/src_4745ba7a._.js:605:15)
+    at SidebarTrigger (http://localhost:3000/_next/static/chunks/src_4745ba7a._.js:848:31)
+    at Header (rsc://React/Server/file:///home/dux/Desktop/store/shop/.next/server/chunks/ssr/%5Broot-of-the-server%5D__3c514f63._.js?13:479:399)
+    at HomePage (rsc://React/Server/file:///home/dux/Desktop/store/shop/.next/server/chunks/ssr/%5Broot-of-the-server%5D__3c514f63._.js?0:4281:391)
+    
+    
+     ⨯ Error: useSidebar must be used within a SidebarProvider.
+    at useSidebar (src/components/ui/sidebar.tsx:49:10)
+    at SidebarTrigger (src/components/ui/sidebar.tsx:260:28)
+  47 |   const context = React.useContext(SidebarContext);
+  48 |   if (!context) {
+> 49 |     throw new Error('useSidebar must be used within a SidebarProvider.');
+     |          ^
+  50 |   }
+  51 |
+  52 |   return context; {
+  digest: '3883396674'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'toggle')
+    at SearchInput (src/components/search-input.tsx:13:23)
+  11 |         variant='outline'
+  12 |         className='bg-background text-muted-foreground relative h-9 w-full justify-start rounded-[0.5rem] text-sm font-normal shadow-none sm:pr-12 md:w-40 lg:w-64'
+> 13 |         onClick={query.toggle}
+     |                       ^
+  14 |       >
+  15 |         <IconSearch className='mr-2 h-4 w-4' />
+  16 |         Search... {
+  digest: '3566430224'
+}
+ ○ Compiling /api/auth/[...nextauth] ...
+

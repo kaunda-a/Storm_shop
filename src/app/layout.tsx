@@ -7,6 +7,8 @@ import type { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import KBar from '@/components/kbar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import './globals.css';
 import './theme.css';
 
@@ -93,10 +95,14 @@ export default async function RootLayout({
             enableColorScheme
           >
             <Providers activeThemeValue={activeThemeValue as string}>
-              <div className="min-h-screen flex flex-col">
-                {children}
-              </div>
-              <Toaster />
+              <SidebarProvider>
+                <KBar>
+                  <div className="min-h-screen flex flex-col">
+                    {children}
+                  </div>
+                  <Toaster />
+                </KBar>
+              </SidebarProvider>
             </Providers>
           </ThemeProvider>
         </NuqsAdapter>
