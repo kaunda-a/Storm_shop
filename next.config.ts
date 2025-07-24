@@ -69,7 +69,6 @@ const baseConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['@tabler/icons-react'],
-    nodeMiddleware: true,
   },
 };
 
