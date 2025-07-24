@@ -284,6 +284,31 @@ export class OrderService {
                   where: { isPrimary: true },
                   select: { url: true },
                   take: 1
+                },
+                category: {
+                  select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                    imageUrl: true,
+                    description: true,
+                    isActive: true,
+                    sortOrder: true,
+                    createdAt: true,
+                    updatedAt: true
+                  }
+                },
+                brand: {
+                  select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                    logoUrl: true,
+                    description: true,
+                    isActive: true,
+                    createdAt: true,
+                    updatedAt: true
+                  }
                 }
               }
             },
